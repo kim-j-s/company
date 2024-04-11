@@ -216,25 +216,38 @@
 
       <div class="slide_wrap">
         <div class="slide_title">
-          <button>프로젝트 문의</button>
+          <button class="slide-act">프로젝트 문의</button>
         </div>
         <div class="slide_content">
-          <div class="form">
-            {{> input placeholder="회사명"}}
-            {{> input placeholder="회사명"}}
-            {{> input placeholder="회사명"}}
-            {{> input placeholder="회사명"}}
-            <div class="textarea">
-              <textarea name="" id="" cols="30" rows="10" placeholder="문의내용"></textarea>
+          <div class="slide_content_inner">
+            <div class="form">
+              <div class="form_input">
+                {{> input placeholder="회사명"}}
+                {{> input placeholder="회사명"}}
+                {{> input placeholder="회사명"}}
+                {{> input placeholder="회사명"}}
+                <div class="textarea">
+                  <textarea name="" id="" cols="30" rows="10" placeholder="문의내용"></textarea>
+                </div>
+              </div>
+              <div class="form_agree">
+                {{> checkbox text="개인정보보호정책에 동의합니다."}}
+              </div>
+              <div class="form_btnarea">
+                <button class="btn"><span class="text">SEND</span></button>
+              </div>
             </div>
           </div>
         </div>
       </div>
       <div class="slide_wrap">
         <div class="slide_title">
-          <button>채용</button>
+          <button class="slide-act">채용</button>
         </div>
         <div class="slide_content">
+          <div class="slide_content_inner">
+            inner
+          </div>
 
         </div>
       </div>

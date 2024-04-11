@@ -28,6 +28,58 @@
 }
 /* // intput */
 
+/* checkbox */
+.checkbox {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  > input {
+    @include hidden;
+    &:checked ~ i {
+      &::after {
+        opacity: 1;
+      }
+    }
+    &:checked:disabled ~ i {
+      border-color: #fff;
+      background-color: transparent;
+      & ~ span {
+        color: #202020;
+        background: #fff;
+      }
+    }
+  }
+  > i {
+    position: relative;
+    flex: none;
+    width: 26px;
+    height: 26px;
+    margin: 1px 0;
+    border: 1px solid #fff;
+    border-radius: 2px;
+    &::after {
+      content: '';
+      position: absolute;
+      top: 7px;
+      left: 6px;
+      width: 12px;
+      height: 6px;
+      border-left: 2px solid #00F0FF;
+      border-bottom: 2px solid #00F0FF;
+      overflow: hidden;
+      opacity: 0;
+      transform: rotate(-45deg);
+      transition: 0.3s;
+    }
+  }
+  > span {
+    flex: auto;
+    margin-left: 14px;
+    color: #fff;
+  }
+}
+/* // checkbox */
+
 /* textarea */
 .textarea {
   position: relative;
@@ -241,7 +293,7 @@
 
 }
 .office_info {
-  margin-top: 140px;
+  margin: 140px 0;
   color: #fff;
 }
 .office_detail {
@@ -265,21 +317,91 @@
 
 
 .form {
-  display: flex;
-  gap: 12px;
-  flex-flow: row wrap;
-  .input {
-    flex: 1 1 calc(50% - 6px);
+  
+  &_input {
+    display: flex;
+    gap: 12px;
+    flex-flow: row wrap;
+    .input {
+      flex: 1 1 calc(50% - 6px);
+    }
+    .textarea {
+      flex: none;
+      width: 100%;
+    }
   }
-  .textarea {
-    flex: none;
-    width: 100%;
+
+  &_agree {
+    margin-top: 12px;
+  }
+
+  &_btnarea {
+    margin-top: 24px;
+    text-align: center;
   }
 }
 /* // welcome */
 
 
+.slide_wrap {
+  + .slide_wrap {
+    margin-top: 32px;
+  }
 
+  .slide_title {
+    > button {
+      position: relative;
+      display: block;
+      width: 100%;
+      background-color: transparent;
+      padding-bottom: 32px;
+      font-size: 32px;
+      color: #fff;
+      line-height: 32px;
+      text-align: left;
+      border-bottom: 1px solid #fff;
+      cursor: pointer;
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 32px;
+        height: 32px;
+        background-color: rgba($color: #fff, $alpha: 0.3);
+      }
+      &::after {
+        content: '';
+        position: absolute;
+        top: 3px;
+        right: 7px;
+        width: 17px;
+        height: 17px;
+        border-bottom: 1px solid #fff;
+        border-left: 1px solid #fff;
+        transform: rotate(-45deg);
+        transition: .3s;
+      }
+      &.active {
+        &::after {
+          top: 13px;
+          transform: rotate(-225deg);
+        }
+      }
+    }
+  }
+
+  .slide_content {
+    color: #fff;
+    &.active {
+      background-color: blue;
+    }
+    &_inner {
+      padding-top: 32px;
+    }
+  }
+
+}
 
 
 
