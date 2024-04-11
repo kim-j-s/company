@@ -2,11 +2,13 @@ header {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
+  z-index: 2;
+  width: 100%;  
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 28px 80px;
+  background-color: rgba($color: #0d0d0d, $alpha: 0.3);
   h1 {
     font-size: 0;
   }
@@ -64,9 +66,6 @@ footer {
           font-weight: 700;
         }
       }
-    }
-    &_copy {
-
     }
   }
 }
