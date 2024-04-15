@@ -100,6 +100,103 @@
 /* // textarea */
 
 /* button */
+
+.btn {
+  display: inline-flex;
+  cursor: pointer;
+  .text {
+    position: relative;
+    display: block;
+  }
+  &.ty1 {
+    padding: 20px 36px;
+    border: 1px solid #fff;
+    border-radius: 36px;
+    background-color: transparent;
+     .text {
+      padding-left: 36px;
+      font-size: 24px;
+      line-height: 30px;
+      color: #fff;
+      &::before {
+        content: '';
+        position: absolute;
+        top: 4px;
+        left: 12px;
+        height: 23px;
+        border-left: 1px solid #fff;
+      }
+      &::after {
+        content: '';
+        position: absolute;
+        top: 15px;
+        left: 1px;
+        width: 23px;
+        border-bottom: 1px solid #fff;
+      }
+     }
+  }
+  &.ty2 {
+    padding: 10px 24px;
+    border-radius: 24px;
+    background-color: #00F0FF;
+    .text {
+      color: #000;
+      line-height: 24px;
+    }
+  }
+  &.ty3 {
+    padding: 7px 24px;
+    border: 1px solid #fff;
+    border-radius: 40px;
+    background-color: transparent;
+    transition: 0.3s;
+    .text {
+      padding-right: 32px;
+      color: #fff;
+      line-height: 24px;
+      transition: 0.3s;
+      &::before {
+        content: '';
+        position: absolute;
+        top: 6px;
+        right: 6px;
+        width: 12px;
+        height: 12px;
+        border-top: 2px solid #fff;
+        border-right: 2px solid #fff;
+        transition: 0.3s;
+      }
+      &::after {
+        content: '';
+        position: absolute;
+        top: 11px;
+        right: 4px;
+        width: 16px;
+        border-bottom: 2px solid #fff;
+        transform: rotate(-45deg);
+        transition: 0.3s;
+      }
+    }
+    &:hover {
+      border: 1px solid #00F0FF;
+      .text {
+        color: #00F0FF;
+        &::before,
+        &::after {
+          border-color: #00F0FF;
+        }
+      }
+    }
+  }
+}
+
+.btnarea {
+  text-align: center;
+  font-size: 0;
+}
+
+
 .down_arrow {
   position: absolute;
   bottom: 0;
@@ -316,8 +413,7 @@
 
 
 
-.form {
-  
+.form {  
   &_input {
     display: flex;
     gap: 12px;
@@ -340,6 +436,10 @@
     text-align: center;
   }
 }
+.recruit_btnarea {
+  display: flex;
+  gap: 16px;
+}
 /* // welcome */
 
 
@@ -349,7 +449,7 @@
   }
 
   .slide_title {
-    > button {
+    > .slide_act {
       position: relative;
       display: block;
       width: 100%;
@@ -368,7 +468,6 @@
         right: 0;
         width: 32px;
         height: 32px;
-        background-color: rgba($color: #fff, $alpha: 0.3);
       }
       &::after {
         content: '';
@@ -377,8 +476,8 @@
         right: 7px;
         width: 17px;
         height: 17px;
-        border-bottom: 1px solid #fff;
-        border-left: 1px solid #fff;
+        border-bottom: 2px solid #fff;
+        border-left: 2px solid #fff;
         transform: rotate(-45deg);
         transition: .3s;
       }
@@ -400,7 +499,6 @@
       padding-top: 32px;
     }
   }
-
 }
 
 
