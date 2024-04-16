@@ -8,13 +8,23 @@
   </div>
 
   <!-- ABOUT US -->
-  <section class="content">
+  <section class="content about_us">
     <h2 class="content_title">ABOUT US</h2>
     <p class="content_desc">
       The BODA LAB은 디지털시대에 발맞춰 클라이언트의 비즈니스를 위한<br />
       다양한 기술적 노하우로 완성된 경험을 제공합니다.<br />
       우리의 활동은 웹, 앱, 모바일을 넘나들며 세상의 모든 비즈니스 활동에 강한 영향력을 전달합니다.
     </p>
+
+    <div class="dom gsap_01">
+      <div class="gsap_01_img">
+        <img src="../../img/gsap01.png" alt="">
+      </div>
+      <div class="marquee">
+        Creative Development Company BODA.Lab
+      </div>
+    </div>
+
   </section>
   <!-- // ABOUT US -->
 
@@ -258,6 +268,7 @@
           </div>
 
         </div>
+
       </div>
 
 
@@ -273,4 +284,22 @@
     </div>
   </section>
   <!-- // WELCOME -->
+
+
+  
+  <script>
+    $('.marquee').marquee({
+      //duration in milliseconds of the marquee
+      duration: 15000,
+      //gap in pixels between the tickers
+      gap: 50,
+      //time in milliseconds before the marquee will start animating
+      delayBeforeStart: 0,
+      //'left' or 'right'
+      direction: 'left',
+      //true or false - should the marquee be duplicated to show an effect of continues flow
+      duplicated: true
+    });
+  </script>
+
   {{/ layout/default }}

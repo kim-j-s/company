@@ -100,7 +100,6 @@
 /* // textarea */
 
 /* button */
-
 .btn {
   display: inline-flex;
   cursor: pointer;
@@ -196,7 +195,6 @@
   font-size: 0;
 }
 
-
 .down_arrow {
   position: absolute;
   bottom: 0;
@@ -230,8 +228,6 @@
   }
 }
 /* // button */
-
-
 
 /* main_kv */
 .main_kv {
@@ -318,6 +314,27 @@
   }
 }
 /* // content default */
+
+/* about us */
+.about_us {
+  .content_desc {
+    position: relative;
+    z-index: 1;
+  }
+  .gsap_01 {
+    position: relative;
+    top: -73px;
+    text-align: right;
+    .marquee {
+      width: 100%;
+      margin-top: 28px;
+      font-size: 84px;
+      color: #fff;
+      overflow: hidden;
+    }
+  }
+}
+/* // about us */
 
 /* history */
 .history {

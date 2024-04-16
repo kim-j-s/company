@@ -17,4 +17,8 @@ function slide() {
 $(function(){
   // slide
   slide();
+
+
+
 })
+
