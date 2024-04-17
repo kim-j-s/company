@@ -283,11 +283,18 @@
   }
 
   &.history {
+    padding-bottom: 200px;
     background-color: #CFCFCF;
     .content_title {
       color: #0D0D0D;
     }
   }
+
+  &.bodalab {
+    padding-top: 0;
+  }
+
+
   &.expertise {
     padding-bottom: 87px;
   }
@@ -371,6 +378,27 @@
 }
 /* // history */
 
+/* BODALAB */
+.gsap_02 {
+  display: flex;
+  align-items: flex-start;
+  img {
+    position: relative;
+    opacity: 0;
+    &.gsap_02_img01 {
+      top: -200px;
+    }
+    &.gsap_02_img02 {
+      top: -140px;
+      margin: 0 30px;
+    }
+    &.gsap_02_img03 {
+      margin-top: 244px;
+    }
+  }
+}
+/* // BODALAB */
+
 /* expertise */
 .expertise {  
 }
@@ -427,9 +455,6 @@
     }
   }
 }
-
-
-
 .form {  
   &_input {
     display: flex;
