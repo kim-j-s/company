@@ -87,39 +87,36 @@ const backgrounds = [
 ];
 
 
-textItems.forEach((item, index) => {
-  let backgroundIndex;
-  switch (index) {
-    case 0:
-    case 1:
-      backgroundIndex = 0;
-      break;
-    case 2:
-      backgroundIndex = 2;
-      break;
-    default:
-      backgroundIndex = 0;
-  }
-  
-  const trigger = index === 0 ? 'top' : 'center'; // Trigger point for each section
-  const scrub = index === 0 ? 0 : 1; // 0 for fixed background, 1 for scrolling with content
+textItems.forEach((item, index) => {  
   gsap.to(dom, {
+    // y: -50,
+    // opacity: 1,
+    duration: 2,
     scrollTrigger: {
       trigger: item,
-      start: 'top 90%',
-      end: 'bottom 25%',
-      // scrub: true,
+      start: 'top 50%',
+      end: 'bottom 50%',
+      // toggleActions:"restart none none reverse",
+      // scrub: 1,
+      preventOverlaps:true,
       markers: true,
-      // toggleActions: 'restart pause reverse pause',
-      // onEnter: function(ele) { 
-      //   console.log('Index', index)
-      //   dom.style.backgroundImage = `url(../../img/${backgrounds[index]})`
-      // },
-      // onLeave: function(ele) { 
-      //   console.log('Index Leave', index)
-      //   dom.style.backgroundImage = `url(../../img/${backgrounds[index]})`
-      // },
+      onEnter: function(ele) { 
+        console.log('Index', index)
+        dom.style.backgroundImage = `url(../../img/${backgrounds[index]})`,
+        dom.classList.remove('active')
+        setTimeout(function(){
+          dom.classList.add('active')
+        }, 100)        
+      },
+      onEnterBack: function(ele) { 
+        console.log('Index onEnterBack', index)
+        dom.style.backgroundImage = `url(../../img/${backgrounds[index]})`
+        dom.classList.remove('active')
+        setTimeout(function(){
+          dom.classList.add('active')
+        }, 100)
+      },
     },
-    backgroundImage: `url(../../img/${backgrounds[index]})`,
   });
 });
+

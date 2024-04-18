@@ -430,7 +430,7 @@
     display: flex;
     // width: 1280px;
     margin: 0 auto;
-    background-color: green;
+    // background-color: green;
   }
   .gsap_vision_text {
     flex: 0 0 50%;
@@ -461,16 +461,23 @@
     position: relative;
     z-index: 1;
     flex: 0 0 50%;
-    background: red;
+    // background: red;
     .img {
       position: sticky;
       // top: 50px;
       top: calc(50% - 270px);
       width: 100%;
-      background-color: yellow;
+      // background-color: yellow;
       .dom {
         height: 540px;
         background-image: url(../../img/gsap_vision_content_01.jpg);
+        background-position: 0 50px;
+        opacity: 0;
+        transition: 1s;
+        &.active {
+          background-position: 0 0;
+          opacity: 1;
+        }
         img {
           display: block;
           max-width: 100%;
