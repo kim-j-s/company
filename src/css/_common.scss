@@ -294,6 +294,8 @@
     padding-top: 0;
   }
 
+  
+
 
   &.expertise {
     padding-bottom: 87px;
@@ -328,7 +330,7 @@
     position: relative;
     z-index: 1;
   }
-  .gsap_01 {
+  .gsap_aboutus {
     position: relative;
     top: -73px;
     text-align: right;
@@ -379,25 +381,25 @@
 /* // history */
 
 /* BODALAB */
-.gsap_02 {
+.gsap_bodalab {
   display: flex;
   align-items: flex-start;
   img {
     position: relative;
     opacity: 0;
-    &.gsap_02_img01 {
+    &.gsap_bodalab_img01 {
       top: -200px;
     }
-    &.gsap_02_img02 {
+    &.gsap_bodalab_img02 {
       margin: 0 30px;
     }
-    &.gsap_02_img03 {
+    &.gsap_bodalab_img03 {
       right: -200px;
       margin-top: 244px;
     }
   }
 }
-.gasp_03 {
+.gsap_bodalab_text {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -417,11 +419,22 @@
 }
 /* // BODALAB */
 
-/* none */
-.about_us,
-.history {
-  display: none !important;
+/* VISION */
+.vision {
+  .content_desc {
+    position: relative;
+    z-index: 1;
+  }
 }
+/* // VISION */
+
+
+
+/* none */
+// .about_us,
+// .history {
+//   display: none !important;
+// }
 /* none */
 
 
