@@ -108,12 +108,17 @@ textItems.forEach((item, index) => {
       trigger: item,
       start: 'top 90%',
       end: 'bottom 25%',
-      scrub: true,
+      // scrub: true,
       markers: true,
-      onEnter: function(ele) { 
-        console.log('Index', index)
-        // dom.style.backgroundImage = `url(../../img/${backgrounds[index]})`
-      },
+      // toggleActions: 'restart pause reverse pause',
+      // onEnter: function(ele) { 
+      //   console.log('Index', index)
+      //   dom.style.backgroundImage = `url(../../img/${backgrounds[index]})`
+      // },
+      // onLeave: function(ele) { 
+      //   console.log('Index Leave', index)
+      //   dom.style.backgroundImage = `url(../../img/${backgrounds[index]})`
+      // },
     },
     backgroundImage: `url(../../img/${backgrounds[index]})`,
   });
