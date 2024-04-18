@@ -77,3 +77,44 @@ gsap.to('.gsap_bodalab_text .text', {
 
 
 // VISION
+const textItems = document.querySelectorAll('.text_item');
+const dom = document.querySelector('.dom');
+
+const backgrounds = [
+  'gsap_vision_content_01.jpg',
+  'gsap_vision_content_02.jpg',
+  'gsap_vision_content_03.jpg'
+];
+
+
+textItems.forEach((item, index) => {
+  let backgroundIndex;
+  switch (index) {
+    case 0:
+    case 1:
+      backgroundIndex = 0;
+      break;
+    case 2:
+      backgroundIndex = 2;
+      break;
+    default:
+      backgroundIndex = 0;
+  }
+  
+  const trigger = index === 0 ? 'top' : 'center'; // Trigger point for each section
+  const scrub = index === 0 ? 0 : 1; // 0 for fixed background, 1 for scrolling with content
+  gsap.to(dom, {
+    scrollTrigger: {
+      trigger: item,
+      start: 'top 90%',
+      end: 'bottom 25%',
+      scrub: true,
+      markers: true,
+      onEnter: function(ele) { 
+        console.log('Index', index)
+        // dom.style.backgroundImage = `url(../../img/${backgrounds[index]})`
+      },
+    },
+    backgroundImage: `url(../../img/${backgrounds[index]})`,
+  });
+});
