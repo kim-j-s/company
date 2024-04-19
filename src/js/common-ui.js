@@ -79,6 +79,7 @@ gsap.to('.gsap_bodalab_text .text', {
 // VISION
 const textItems = document.querySelectorAll('.text_item');
 const dom = document.querySelector('.dom');
+const iimg = document.querySelector('.dom img');
 
 const backgrounds = [
   'gsap_vision_content_01.jpg',
@@ -86,34 +87,41 @@ const backgrounds = [
   'gsap_vision_content_03.jpg'
 ];
 
+const imgs = [
+  'gsap_vision_content_01.jpg',
+  'gsap_vision_content_02.jpg',
+  'gsap_vision_content_03.jpg'
+];
+
 
 textItems.forEach((item, index) => {  
-  // gsap.to(dom, {
   gsap.to(textItems, {
-    backgroundPositionY: 0,
+    // backgroundPositionY: 0,
     stagger: 12,
     duration: 12,
     scrollTrigger: {
       trigger: item,
-      start: 'top 80%',
-      end: 'bottom 40%',
+      start: 'top 50%',
+      end: 'bottom 50%',
       scrub: 1,
       markers: true,
       onEnter: function(ele) { 
-        console.log('Index', index),
-        dom.style.backgroundImage = `url(../../img/${backgrounds[index]})`
+        // console.log('Index', index),
+        // dom.style.backgroundImage = `url(../../img/${backgrounds[index]})`
         dom.classList.remove('active')
         setTimeout(function(){
           dom.classList.add('active')
         }, 100)
+        iimg.src = `../../img/${imgs[index]}`
       },
       onEnterBack: function(ele) { 
-        console.log('Index onEnterBack', index)
-        dom.style.backgroundImage = `url(../../img/${backgrounds[index]})`
+        // console.log('Index onEnterBack', index)
+        // dom.style.backgroundImage = `url(../../img/${backgrounds[index]})`
         dom.classList.remove('active')
         setTimeout(function(){
           dom.classList.add('active')
         }, 100)
+        iimg.src = `../../img/${imgs[index]}`
       },
     },
   });
