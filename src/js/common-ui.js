@@ -88,25 +88,24 @@ const backgrounds = [
 
 
 textItems.forEach((item, index) => {  
-  gsap.to(dom, {
-    // y: -50,
-    // opacity: 1,
-    duration: 2,
+  // gsap.to(dom, {
+  gsap.to(textItems, {
+    backgroundPositionY: 0,
+    stagger: 12,
+    duration: 12,
     scrollTrigger: {
       trigger: item,
-      start: 'top 50%',
-      end: 'bottom 50%',
-      // toggleActions:"restart none none reverse",
-      // scrub: 1,
-      preventOverlaps:true,
+      start: 'top 80%',
+      end: 'bottom 40%',
+      scrub: 1,
       markers: true,
       onEnter: function(ele) { 
-        console.log('Index', index)
-        dom.style.backgroundImage = `url(../../img/${backgrounds[index]})`,
+        console.log('Index', index),
+        dom.style.backgroundImage = `url(../../img/${backgrounds[index]})`
         dom.classList.remove('active')
         setTimeout(function(){
           dom.classList.add('active')
-        }, 100)        
+        }, 100)
       },
       onEnterBack: function(ele) { 
         console.log('Index onEnterBack', index)

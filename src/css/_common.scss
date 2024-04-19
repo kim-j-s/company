@@ -461,22 +461,20 @@
     position: relative;
     z-index: 1;
     flex: 0 0 50%;
-    // background: red;
     .img {
       position: sticky;
-      // top: 50px;
       top: calc(50% - 270px);
       width: 100%;
-      // background-color: yellow;
       .dom {
         height: 540px;
         background-image: url(../../img/gsap_vision_content_01.jpg);
         background-position: 0 50px;
+        background-repeat: no-repeat;
         opacity: 0;
-        transition: 1s;
         &.active {
           background-position: 0 0;
           opacity: 1;
+          transition: 0.5s;
         }
         img {
           display: block;
@@ -493,6 +491,7 @@
 
 /* none */
 .about_us,
+.bodalab,
 .history {
   display: none !important;
 }
