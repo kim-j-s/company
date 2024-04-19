@@ -502,10 +502,96 @@
 /* none */
 .about_us,
 .bodalab,
+.vision,
 .history {
   display: none !important;
 }
 /* none */
+
+
+/* PROJECT */
+.output {
+  padding: 20px;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 1.5;
+  color: #fff;
+  border: 1px solid #000;
+}
+.fix {
+  position: fixed;
+  top: 50px;
+  z-index: 50;
+  border-radius: 50px;
+  background-color: yellow;
+  border: 1px solid #000;
+  width: 50px;
+  height: 50px;
+}
+
+.project_content {
+  display: flex;
+  flex-direction: column;
+  gap: 100px 0;
+  .project_content_items {
+    display: flex;
+    gap: 0 32px;
+    .item {
+      display: flex;
+      flex-direction: column;
+      gap: 24px 0;
+      .item_detail {
+        display: flex;
+        flex-flow: row wrap;
+        gap: 24px;
+        .title {
+          flex: 1 1 0;
+          font-weight: 700;
+          font-size: 18px;
+          color: #fff;
+          line-height: 24px;
+          small {
+            display: block;
+            padding-top: 18px;
+            font-weight: 400;
+            font-size: 14px;
+            color: #B0B0B0;
+          }
+        }
+        .date {
+          flex: none;
+          font-weight: 300;
+          color: #B0B0B0;
+          line-height: 24px;
+        }
+        .badge_wrap {
+          flex: 1 1 100%;
+        }
+      }
+    }
+  }
+}
+
+/* // PROJECT */
+
+/* badge */
+.badge_wrap {
+  display: flex;
+  gap: 4px;
+  // height: 20px;
+  .badge_item {
+    display: block;
+    padding: 0 14px;
+    font-weight: 300;
+    font-size: 14px;
+    color: #fff;
+    line-height: 18px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.20);
+    background: rgba(255, 255, 255, 0.20);
+  }
+}
+/* // badge */
 
 
 /* expertise */

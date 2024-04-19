@@ -129,3 +129,31 @@ textItems.forEach((item, index) => {
   })
 });
 
+
+
+let mouseX = 0;
+let mouseY = 0;
+let targetX = 0;
+let targetY = 0;
+const ease = 0.08; // 이동 속도 조절을 위한 값을 조절
+
+window.addEventListener("mousemove", (e) => {
+  targetX = e.clientX;
+  targetY = e.clientY;
+});
+
+function updateOutput() {
+  mouseX += (targetX - mouseX) * ease;
+  mouseY += (targetY - mouseY) * ease;
+
+  document.querySelector('.output').textContent = `마우스 x 축 : ${Math.round(mouseX)}, 마우스 y 축 : ${Math.round(mouseY)}`;
+  document.querySelector('.fix').style.left = `${Math.round(mouseX)}px`;
+}
+
+function smoothUpdate() {
+  updateOutput(); // 출력 업데이트
+  requestAnimationFrame(smoothUpdate);
+}
+
+// 부드러운 업데이트 시작
+smoothUpdate();
