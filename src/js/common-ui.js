@@ -96,34 +96,36 @@ const imgs = [
 
 textItems.forEach((item, index) => {  
   gsap.to(textItems, {
-    // backgroundPositionY: 0,
-    stagger: 12,
-    duration: 12,
+    opacity: 1,
     scrollTrigger: {
       trigger: item,
       start: 'top 50%',
       end: 'bottom 50%',
-      scrub: 1,
+      // scrub: 1,
       markers: true,
       onEnter: function(ele) { 
-        // console.log('Index', index),
+        console.log('Index', index, )
         // dom.style.backgroundImage = `url(../../img/${backgrounds[index]})`
-        dom.classList.remove('active')
-        setTimeout(function(){
-          dom.classList.add('active')
-        }, 100)
-        iimg.src = `../../img/${imgs[index]}`
+        if (index != 0) {
+          dom.classList.remove('active')
+          setTimeout(function(){
+            dom.classList.add('active')
+          }, 10)
+          iimg.src = `../../img/${imgs[index]}`
+        }
       },
       onEnterBack: function(ele) { 
         // console.log('Index onEnterBack', index)
         // dom.style.backgroundImage = `url(../../img/${backgrounds[index]})`
-        dom.classList.remove('active')
-        setTimeout(function(){
-          dom.classList.add('active')
-        }, 100)
-        iimg.src = `../../img/${imgs[index]}`
+        if ((textItems.length - 1) != index) {
+          dom.classList.remove('active')
+          setTimeout(function(){
+            dom.classList.add('active')
+          }, 10)
+          iimg.src = `../../img/${imgs[index]}`
+        }
       },
     },
-  });
+  })
 });
 

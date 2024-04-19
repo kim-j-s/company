@@ -428,9 +428,8 @@
   .gsap_vision {
     position: relative;
     display: flex;
-    // width: 1280px;
     margin: 0 auto;
-    // background-color: green;
+    margin-top: -48px;
     .gsap_vision_inner {
       flex: 0 0 50%;
       display: flex;
@@ -439,13 +438,13 @@
   }
   .gsap_vision_text {
     width: 660px;
-    // background: blue;
     .text_item {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
       justify-content: center;
       padding: 252px 0;
+      // padding: 300px 0;
       padding-left: 160px;
       color: #fff;
       .text_item_inner {
@@ -462,7 +461,6 @@
         position: absolute;
         bottom: 0;
         left: 95px;
-        // padding-left: 95px;
         font-weight: 300;
         white-space: nowrap;
       }
@@ -487,7 +485,7 @@
         opacity: 0;
         &.active {
           opacity: 1;
-          transition: 0.8s;
+          transition: 1.2s;
         }
         img {
           max-width: 100%;
