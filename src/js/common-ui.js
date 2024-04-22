@@ -104,7 +104,7 @@ textItems.forEach((item, index) => {
       // scrub: 1,
       markers: true,
       onEnter: function(ele) { 
-        console.log('Index', index, )
+        // console.log('Index', index)
         // dom.style.backgroundImage = `url(../../img/${backgrounds[index]})`
         if (index != 0) {
           dom.classList.remove('active')
@@ -132,72 +132,74 @@ textItems.forEach((item, index) => {
 
 
 let mouseX = 0;
-let mouseY = 0;
 let targetX = 0;
-let targetY = 0;
+let domX = 0;
 const ease = 0.08; // 이동 속도 조절을 위한 값을 조절
 
-
-const hoverDom = document.querySelector('.project_content_items');
+// 브라우져 넓이
 let wwidth = document.documentElement.clientWidth
 
+// 컨텐츠 선언
+const hoverDom = document.querySelector('.project_content_items');
+
+// 컨텐츠 넓이
+let domWidth = hoverDom.offsetWidth;
+
+let 공간 = wwidth - domWidth
+
+
+// 계산되어야 할 전체 넓이에서 컨텐츠 넓이를 뺀 여백의 왼쪽 여백값
+// let zeroPoint = (wwidth - 1280) / 2;
+let zeroPoint = hoverDom.offsetLeft;
 
 // hover 컨텐츠 반
-const hoverDomHalf = hoverDom / 2;
+const hoverDomHalf = domWidth / 2;
+// console.log('컨텐츠 넓이 절반 넓이 : ', hoverDomHalf);
 
-// 컨텐츠 우측 끝
+// 컨텐츠 0점 + 컨텐츠 넓이
 const domOffsetRight = hoverDom.offsetLeft + hoverDom.offsetWidth;
 
-// window.addEventListener("mousemove", (e) => {
-//   targetX = e.clientX;
-//   targetY = e.clientY;
-// });
-
-// const hoverDom = document.querySelector('.project_content_items');
-
-hoverDom.addEventListener("mousemove", (e) => {
+window.addEventListener("mousemove", (e) => {
   targetX = e.clientX;
-  targetY = e.clientY;
+  // console.log('브라우져 X 축 값 : ', targetX);
 });
 
-hoverDom.addEventListener("mouseleave", () => {
-
-  // 왼쪽으로 나갔을 경우
-  /*
-  if () {
-
-  } else {
-    
-  }
-  */
-  targetX = 0;
-  targetY = 0;
+hoverDom.addEventListener("mousemove", (e) => {
+  domX = e.clientX;
+  // console.log('컨텐츠 X 축 값 : ', domX);
 });
 
 function updateOutput() {
   mouseX += (targetX - mouseX) * ease;
-  mouseY += (targetY - mouseY) * ease;
-
-  document.querySelector('.output').textContent = `마우스 x 축 : ${Math.round(mouseX)}, 마우스 y 축 : ${Math.round(mouseY)}`;
+  document.querySelector('.output').textContent = `마우스 x 축 : ${Math.round(mouseX)}`;
   document.querySelector('.fix').style.left = `${Math.round(mouseX)}px`;
-
+  document.querySelector('.fix').textContent = domX
   
-  
-  let domWidth = hoverDom.offsetWidth;
-  let zeroPoint = (wwidth - 1280) / 2;
-  let 공간 = wwidth - domWidth
-  console.log('공간 넓이 : ', 공간);
-  // const per = (targetX - zeroPoint) / domWidth * 100;
-  const per = (targetX - zeroPoint) / (wwidth - 공간) * 100;
-  console.log('per per per', per)
-  const 분해 = per / 4;
-  // const 분해증가 = Number(분해) + 35;
-  const 분해증가 = Number(분해);
-  const perComma = 분해증가.toFixed(3)
-  console.log('소수점 정리 : ', perComma);
-  $(hoverDom).children('.item').eq(0).css('width', perComma + '%')
-  $(hoverDom).children('.item').eq(1).css('width', (100 - perComma) + '%')
+  // const per = (targetX - zeroPoint) / (wwidth - 공간) * 100;
+  // const 분해 = per / 4;
+  // const 분해증가 = Number(분해);
+  // const perComma = 분해증가.toFixed(3)
+  // $(hoverDom).children('.item').eq(0).css('width', perComma + '%')
+  // $(hoverDom).children('.item').eq(1).css('width', (100 - perComma) + '%')
 }
+
+hoverDom.addEventListener("mouseleave", () => {
+  // 왼쪽으로 나갔을 경우
+  const calchoverDomHalf = wwidth / 2;
+  console.log('targetX 위치 : ', targetX, 'domX 위치 : ', domX);
+  setTimeout(function(){
+    // if (targetX < domX && targetX < zeroPoint) {
+    if (targetX < zeroPoint) {
+      domX = zeroPoint;
+      // console.log('left : ', hoverDomHalf, ' X 값 : ', targetX);
+      console.log('left');
+    } else if (domX < targetX) {
+      targetX = domOffsetRight;
+      console.log('right');
+      // console.log('가야하는 왼쪽 길이 : ', domOffsetRight, ' X 값 : ', targetX, ' dom X 축 : ', domY, ' dom 절반 넓이 : ', hoverDomHalf);
+    }
+  }, 50)
+});
 
 function smoothUpdate() {
   updateOutput(); // 출력 업데이트
