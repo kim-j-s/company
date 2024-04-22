@@ -537,9 +537,15 @@
     display: flex;
     gap: 0 32px;
     .item {
+      // flex: 1 1 auto;
       display: flex;
       flex-direction: column;
       gap: 24px 0;
+      // transition: 0.5s;
+      img {
+        display: block;
+        width: 100%;
+      }
       .item_detail {
         display: flex;
         flex-flow: row wrap;

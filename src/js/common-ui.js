@@ -137,9 +137,41 @@ let targetX = 0;
 let targetY = 0;
 const ease = 0.08; // 이동 속도 조절을 위한 값을 조절
 
-window.addEventListener("mousemove", (e) => {
+
+const hoverDom = document.querySelector('.project_content_items');
+let wwidth = document.documentElement.clientWidth
+
+
+// hover 컨텐츠 반
+const hoverDomHalf = hoverDom / 2;
+
+// 컨텐츠 우측 끝
+const domOffsetRight = hoverDom.offsetLeft + hoverDom.offsetWidth;
+
+// window.addEventListener("mousemove", (e) => {
+//   targetX = e.clientX;
+//   targetY = e.clientY;
+// });
+
+// const hoverDom = document.querySelector('.project_content_items');
+
+hoverDom.addEventListener("mousemove", (e) => {
   targetX = e.clientX;
   targetY = e.clientY;
+});
+
+hoverDom.addEventListener("mouseleave", () => {
+
+  // 왼쪽으로 나갔을 경우
+  /*
+  if () {
+
+  } else {
+    
+  }
+  */
+  targetX = 0;
+  targetY = 0;
 });
 
 function updateOutput() {
@@ -148,6 +180,23 @@ function updateOutput() {
 
   document.querySelector('.output').textContent = `마우스 x 축 : ${Math.round(mouseX)}, 마우스 y 축 : ${Math.round(mouseY)}`;
   document.querySelector('.fix').style.left = `${Math.round(mouseX)}px`;
+
+  
+  
+  let domWidth = hoverDom.offsetWidth;
+  let zeroPoint = (wwidth - 1280) / 2;
+  let 공간 = wwidth - domWidth
+  console.log('공간 넓이 : ', 공간);
+  // const per = (targetX - zeroPoint) / domWidth * 100;
+  const per = (targetX - zeroPoint) / (wwidth - 공간) * 100;
+  console.log('per per per', per)
+  const 분해 = per / 4;
+  // const 분해증가 = Number(분해) + 35;
+  const 분해증가 = Number(분해);
+  const perComma = 분해증가.toFixed(3)
+  console.log('소수점 정리 : ', perComma);
+  $(hoverDom).children('.item').eq(0).css('width', perComma + '%')
+  $(hoverDom).children('.item').eq(1).css('width', (100 - perComma) + '%')
 }
 
 function smoothUpdate() {
@@ -157,3 +206,4 @@ function smoothUpdate() {
 
 // 부드러운 업데이트 시작
 smoothUpdate();
+
