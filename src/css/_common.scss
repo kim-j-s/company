@@ -510,6 +510,7 @@
 
 
 /* PROJECT */
+/*
 .output {
   padding: 20px;
   font-weight: 500;
@@ -542,6 +543,7 @@
   padding: 0 20px;
   white-space: nowrap;
 }
+*/
 
 .project_content {
   display: flex;
@@ -555,6 +557,7 @@
       display: flex;
       flex-direction: column;
       gap: 24px 0;
+      // transition: 0.08s;
       .item_thumb {
         position: relative;
         padding-top: 66%;
