@@ -272,72 +272,61 @@ smoothUpdate();
 
 /*----------------------------------------*/
 
+
 // project 효과
-let mousePositions = []; // 각 컨텐츠의 마우스 위치를 저장하기 위한 배열
-let targets = []; // 각 컨텐츠의 목표 위치를 저장하기 위한 배열
-let domPositions = []; // 각 컨텐츠의 현재 위치를 저장하기 위한 배열
-let targetDomPositions = []; // 각 컨텐츠의 목표 DOM 위치를 저장하기 위한 배열
-let domOffsetRights = []; // 각 컨텐츠의 offsetRight 값을 저장하기 위한 배열
-let zeroPoints = []; // 각 컨텐츠의 왼쪽 잔류 영역을 저장하기 위한 배열
-let domWidths = []; // 각 컨텐츠의 너비를 저장하기 위한 배열
-const ease = 0.07; // 이동 속도 조절을 위한 값을 조절 : 낮을수록 느림
 
-// 컨텐츠 선언
-const hoverDoms = document.querySelectorAll('.project_content_items');
+// 윈도우 마우스 X
+let mouseX = 0;
+// 계산된 윈도우 마우스 X
+let targetX = 0;
+// element 마우스 X
+let domX = 0;
+// 계산된 element 마우스 X
+let targetDomX = 0;
+// 이동 속도 조절을 위한 값을 조절 : 낮을수록 느림
+const ease = 0.07; 
 
-hoverDoms.forEach((hoverDom, index) => {
-  // 컨텐츠 넓이
-  const domWidth = hoverDom.offsetWidth;
-  domWidths.push(domWidth); // 너비를 배열에 저장
-  mousePositions.push(0);
-  targets.push(0);
-  domPositions.push(0);
-  targetDomPositions.push(0);
-  domOffsetRights.push(0);
-  zeroPoints.push(0);
+// requestAnimationFrame 초기화
+let raf = null;
 
-  window.addEventListener("mousemove", (e) => {
-    targets[index] = e.clientX;
-  });
+// project 영역
+const eventDom = document.querySelector('.project');
 
-  hoverDom.addEventListener("mousemove", (e) => {
-    console.log('진입');
-    domPositions[index] = e.clientX;
-    zeroPoints[index] = hoverDom.offsetLeft;
-    domOffsetRights[index] = hoverDom.offsetLeft + hoverDom.offsetWidth;
-    // updateOutput()
-  });
-
-  hoverDom.addEventListener("mouseleave", () => {
-    console.log('leave');
-    setTimeout(function(){
-      if (targets[index] < zeroPoints[index]) {
-        domPositions[index] = zeroPoints[index];
-      } else if (domPositions[index] < targets[index] && targets[index] > domOffsetRights[index]) {
-        domPositions[index] = domOffsetRights[index];
-      }
-    }, 10)
-  });
+// 윈도우 마우스 X 값 출력
+window.addEventListener("mousemove", (e) => {
+  targetX = e.clientX;
 });
 
-function updateOutput() {
-  mousePositions.forEach((mouseX, index) => {
-    console.log('진입 index : ', index);
-    mouseX += (targets[index] - mouseX) * ease;
-    targetDomPositions[index] += (domPositions[index] - targetDomPositions[index]) * ease;
-
-    const calc = (((targetDomPositions[index] - zeroPoints[index]) / domWidths[index] * 100) / 5) + 40;
-    // console.log(calc.toFixed(2));
-    const perComma = calc.toFixed(2);
-    $(hoverDoms[index]).children('.item').eq(0).css('width', (100 - perComma) + '%');
-    $(hoverDoms[index]).children('.item').eq(1).css('width', perComma + '%');
-  });
+// 마우스 부드러운 계산식
+function mxMotion() {
+  mouseX += (targetX - mouseX) * ease;
+  targetDomX += (domX - targetDomX) * ease;
 }
 
-function smoothUpdate() {
-  updateOutput(); // 출력 업데이트
-  requestAnimationFrame(smoothUpdate);
+function mouseXMotion() {
+  mxMotion()
+  document.querySelector('.output').textContent = `마우스 x 축 : ${Math.round(mouseX)}`;
+  document.querySelector('.fix').style.left = `${Math.round(mouseX)}px`;
+  document.querySelector('.fix').textContent = domX
+  document.querySelector('.fix2').textContent = targetDomX.toFixed(2)
+  raf = requestAnimationFrame(mouseXMotion);
 }
 
-// 부드러운 업데이트 시작
-// smoothUpdate();
+// project 영역 진입 시 모션 시작
+eventDom.addEventListener('mouseenter', () => {
+  console.log('project 영역 진입');
+  mouseXMotion()
+})
+
+// project 영역 나갔을 경우 모션 정지
+eventDom.addEventListener('mouseleave', () => {
+  setTimeout(function(){
+    cancelAnimationFrame(raf)
+  }, 1000)
+  /*
+  개선 내용 : 
+  requestAnimationFrame을 사용해서 mouseX(윈도우 마우스 포인트) === domX(돔의 마우스 위치) 
+  가 동일할 경우 cancelAnimationFrame(raf) 실행하여 requestAnimationFrame 멈춤
+  */
+  console.log('나감');
+})
