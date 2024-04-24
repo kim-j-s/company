@@ -289,27 +289,27 @@ smoothUpdate();
 // let zeroPoint = 0;
 
 
-// 윈도우 마우스 X
-// let mouseX = [];
+// 윈도우 마우스 X / 모션
 let mouseX = 0;
 // 계산된 윈도우 마우스 X
-// let targetX = [];
 let targetX = 0;
 // element 마우스 X
+// let domX = [];
 let domX = [];
-// dom 의 넓이
-// let domWidth = [];
-// 계산된 element 마우스 X
+// 계산된 element 마우스 X / 모션
+// let targetDomX = [];
 let targetDomX = [];
 // 각 컨텐츠의 너비를 저장하기 위한 배열
 let domWidths = []; 
+// 돔 최대 길이
+let domMaxWidths = [];
 // 컨텐츠 왼쪽 잔류 영역 계산
 let zeroPoint = [];
 // 이동 속도 조절을 위한 값을 조절 : 낮을수록 느림
 const ease = 0.08;
 
 // requestAnimationFrame 초기화
-let raf = null;
+let raf = false;
 
 // project 영역
 const eventDom = document.querySelector('.project');
@@ -328,6 +328,7 @@ function windowMotion() {
   document.querySelector('.fix').style.left = `${Math.round(mouseX)}px`;
   document.querySelector('.fix').textContent = `${Math.round(mouseX)}px`;
 }
+
 // 윈도우 X 좌표는 상시 출력
 function windowXmotion() {
   // console.log('구동');
@@ -339,7 +340,8 @@ windowXmotion();
 // dom 용
 // 개별로 적용
 function domMotion() {
-  targetDomX += (domX - targetDomX) * ease;
+  // targetDomX += (domX - targetDomX) * ease;
+  domX[index] += (targetDomX[index] - domX[index]) * ease;
 }
 
 // 개별로 적용
@@ -351,10 +353,12 @@ function mouseXMotion() {
 }
 
 // project 영역 진입 시 모션 시작
+/*
 eventDom.addEventListener('mouseenter', () => {
   console.log('project 영역 진입');
   // mouseXMotion()
 })
+*/
 
 // project 영역 나갔을 경우 모션 정지
 eventDom.addEventListener('mouseleave', () => {
@@ -366,7 +370,7 @@ eventDom.addEventListener('mouseleave', () => {
   requestAnimationFrame을 사용해서 mouseX(윈도우 마우스 포인트) === domX(돔의 마우스 위치) 
   가 동일할 경우 cancelAnimationFrame(raf) 실행하여 requestAnimationFrame 멈춤
   */
-  console.log('나감');
+  // console.log('나감');
 })
 
 // 컨텐츠 선언
@@ -375,24 +379,40 @@ hoverDoms.forEach((hoverDom, index) => {
   
   // 초기세팅
   const domWidth = hoverDom.offsetWidth;
-  domWidths.push(domWidth); // 너비를 배열에 저장
+  // 너비를 배열에 저장
+  domWidths.push(domWidth); 
+  // dom 단위 x 값 모션 변수
   domX.push(0);
+  // dom 단위 x 값 변수
+  targetDomX.push(0);
   // zeroPoints 0점
   zeroPoint.push(0);
-
-  // console.log(domWidth);
-
 
   // dom 에 마우스 진입 시 이벤트
   hoverDom.addEventListener("mousemove", (e) => {
     // console.log(e);
     // dom의 X 좌표
-    domX[index] = e.clientX;
+    targetDomX[index] = e.clientX;
     // console.log(domX[index])
     // dom의 컨텐트 왼쪽 0점
     zeroPoint[index] = hoverDom.offsetLeft;
-    // dom 길이
-    // domWidth[index] = hoverDom.offsetLeft + hoverDom.offsetWidth;
+
+    // 각각 최대 넓이값 추가
+    domMaxWidths[index] = hoverDom.offsetLeft + hoverDom.offsetWidth;    
+
+    // if (raf === false) {
+    //   raf = true
+    //   console.log(raf);
+    //   console.log('index : ', index)
+    // }
+    motionUpdate(index);
+
+    // 각각 dom의 자식에게 넓이를 배정하는 기능
+    // domX[index] += (targetDomX[index] - domX[index]) * ease;
+    // const calc = (((domX[index] - zeroPoint[index]) / domWidths[index] * 100) / 5) + 40;
+    // const perComma = calc.toFixed(2);
+    // $(hoverDoms[index]).children('.item').eq(0).css('width', (100 - perComma) + '%');
+    // $(hoverDoms[index]).children('.item').eq(1).css('width', perComma + '%');
   })
 
   // dom 에 마우스 나갈 시 이벤트
@@ -401,24 +421,48 @@ hoverDoms.forEach((hoverDom, index) => {
     setTimeout(function(){
       // 돔의 x 좌표가 돔의 0점보다 높다 크다 비교
       if (targetX < zeroPoint[index]) {
-        domX[index] = zeroPoint[index];
+        targetDomX[index] = zeroPoint[index];
         // console.log('left', mouseX)
       /*
       우측으로 나갈 경우 돔의 X 좌표가 윈도우 X 좌표보다 작고, 
       윈도우 X 좌표가 돔의 전체 길이보다 큰 경우
       */
-      } else if (targetX > domX[index] && targetX > domWidths[index]) {
-      // } else if (targetX > domX[index]) {
-        // domPositions[index] = domWidth[index];
-        console.log('right')
+      } else if (targetX > targetDomX[index] && targetX > domWidths[index]) {
+      // } else if (targetX > targetDomX[index]) {
+        targetDomX[index] = domMaxWidths[index];
+        // console.log('right', domMaxWidths[index])
       }
-      // console.log('out mouseX', mouseX)
-      // console.log('out zeroPoint[index]', zeroPoint[index])
+      // console.log('후보정 이벤트 작성 구간')
     }, 10)
     // hoverDom.style.background = 'blue'
   });
+
+
+  // motion
+  function motionFuntion(index) {
+    // const indexNum = index;
+    console.log('motion index : ', index)
+    domX[index] += (targetDomX[index] - domX[index]) * ease;
+    const calc = (((domX[index] - zeroPoint[index]) / domWidths[index] * 100) / 5) + 40;
+    const perComma = calc.toFixed(2);
+    // console.log('percent : ', perComma);
+    $(hoverDoms[index]).children('.item').eq(0).css('width', (100 - perComma) + '%');
+    $(hoverDoms[index]).children('.item').eq(1).css('width', perComma + '%');
+  }
+  function motionUpdate() {
+    motionFuntion(index); // 출력 업데이트
+    requestAnimationFrame(motionUpdate);
+  }
+  // motionUpdate();
 })
 
+
+/*
+1. 각 돔 부드럽게 안감
+2. 진입 시 모션 시작 
+3. 나갔을 경우 모션 종료 (마우스 위치와 컨텐츠 최대 넓이를 비교해서 종료하는 방식 index 필요)
+4. test
+*/
 
 
 
