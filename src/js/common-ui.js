@@ -102,7 +102,7 @@ textItems.forEach((item, index) => {
       start: 'top 50%',
       end: 'bottom 50%',
       // scrub: 1,
-      markers: true,
+      // markers: true,
       onEnter: function(ele) { 
         // console.log('Index', index)
         // dom.style.backgroundImage = `url(../../img/${backgrounds[index]})`
@@ -306,10 +306,11 @@ let domMaxWidths = [];
 // 컨텐츠 왼쪽 잔류 영역 계산
 let zeroPoint = [];
 // 이동 속도 조절을 위한 값을 조절 : 낮을수록 느림
-const ease = 0.08;
+const ease = 0.04;
 
 // requestAnimationFrame 초기화
-let raf = false;
+// let raf = false;
+let rafs = [];
 
 // project 영역
 const eventDom = document.querySelector('.project');
@@ -345,12 +346,12 @@ function domMotion() {
 }
 
 // 개별로 적용
-function mouseXMotion() {
-  domMotion()  
-  document.querySelector('.fix').textContent = domX
-  document.querySelector('.fix2').textContent = targetDomX.toFixed(2)
-  raf = requestAnimationFrame(mouseXMotion);
-}
+// function mouseXMotion() {
+//   domMotion()  
+//   document.querySelector('.fix').textContent = domX
+//   document.querySelector('.fix2').textContent = targetDomX.toFixed(2)
+//   raf = requestAnimationFrame(mouseXMotion);
+// }
 
 // project 영역 진입 시 모션 시작
 /*
@@ -361,17 +362,17 @@ eventDom.addEventListener('mouseenter', () => {
 */
 
 // project 영역 나갔을 경우 모션 정지
-eventDom.addEventListener('mouseleave', () => {
-  setTimeout(function(){
-    cancelAnimationFrame(raf)
-  }, 1000)
-  /*
-  개선 내용 : 
-  requestAnimationFrame을 사용해서 mouseX(윈도우 마우스 포인트) === domX(돔의 마우스 위치) 
-  가 동일할 경우 cancelAnimationFrame(raf) 실행하여 requestAnimationFrame 멈춤
-  */
-  // console.log('나감');
-})
+// eventDom.addEventListener('mouseleave', () => {
+//   setTimeout(function(){
+//     cancelAnimationFrame(raf)
+//   }, 1000)
+//   /*
+//   개선 내용 : 
+//   requestAnimationFrame을 사용해서 mouseX(윈도우 마우스 포인트) === domX(돔의 마우스 위치) 
+//   가 동일할 경우 cancelAnimationFrame(raf) 실행하여 requestAnimationFrame 멈춤
+//   */
+//   // console.log('나감');
+// })
 
 // 컨텐츠 선언
 const hoverDoms = document.querySelectorAll('.project_content_items');
@@ -405,6 +406,7 @@ hoverDoms.forEach((hoverDom, index) => {
     //   console.log(raf);
     //   console.log('index : ', index)
     // }
+    console.log('진입 인덱스 : ', index)
     motionUpdate(index);
 
     // 각각 dom의 자식에게 넓이를 배정하는 기능
@@ -428,11 +430,14 @@ hoverDoms.forEach((hoverDom, index) => {
       윈도우 X 좌표가 돔의 전체 길이보다 큰 경우
       */
       } else if (targetX > targetDomX[index] && targetX > domWidths[index]) {
-      // } else if (targetX > targetDomX[index]) {
         targetDomX[index] = domMaxWidths[index];
         // console.log('right', domMaxWidths[index])
       }
       // console.log('후보정 이벤트 작성 구간')
+      // 나갈 경우 requestAnimationFrame 종료
+      console.log('종료');
+      // cancelAnimationFrame(raf)
+      cancelAnimationFrame(rafs[index]);
     }, 10)
     // hoverDom.style.background = 'blue'
   });
@@ -449,22 +454,13 @@ hoverDoms.forEach((hoverDom, index) => {
     $(hoverDoms[index]).children('.item').eq(0).css('width', (100 - perComma) + '%');
     $(hoverDoms[index]).children('.item').eq(1).css('width', perComma + '%');
   }
-  function motionUpdate() {
+  function motionUpdate(index) {
     motionFuntion(index); // 출력 업데이트
-    requestAnimationFrame(motionUpdate);
+    // console.log('index : ', index);
+    // requestAnimationFrame(motionUpdate);
+    cancelAnimationFrame(rafs[index]);
+    // raf = requestAnimationFrame(motionUpdate);
+    rafs[index] = requestAnimationFrame(() => motionUpdate(index));
   }
   // motionUpdate();
 })
-
-
-/*
-1. 각 돔 부드럽게 안감
-2. 진입 시 모션 시작 
-3. 나갔을 경우 모션 종료 (마우스 위치와 컨텐츠 최대 넓이를 비교해서 종료하는 방식 index 필요)
-4. test
-*/
-
-
-
-
-
