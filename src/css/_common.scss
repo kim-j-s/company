@@ -294,11 +294,16 @@
     padding-top: 0;
   }
 
-  
-
-
   &.expertise {
     padding-bottom: 87px;
+  }
+
+  &.project {
+    .content_title {
+      padding-bottom: 100px;
+      font-size: 60px;
+      text-align: center;
+    }
   }
 
   &.welcome {
@@ -500,51 +505,16 @@
 
 
 /* none */
-.about_us,
-.bodalab,
-.vision,
-.history {
-  display: none !important;
-}
+// .about_us,
+// .bodalab,
+// .vision,
+// .history {
+//   display: none !important;
+// }
 /* none */
 
 
 /* PROJECT */
-
-.output {
-  padding: 20px;
-  font-weight: 500;
-  font-size: 24px;
-  line-height: 1.5;
-  color: #fff;
-  border: 1px solid #000;
-}
-.fix {
-  position: fixed;
-  top: 50px;
-  z-index: 50;
-  border-radius: 50px;
-  background-color: yellow;
-  border: 1px solid #000;
-  min-width: 50px;
-  line-height: 50px;
-  padding: 0 20px;
-  white-space: nowrap;
-}
-.fix2 {
-  position: fixed;
-  top: 120px;
-  z-index: 50;
-  border-radius: 50px;
-  background-color: yellow;
-  border: 1px solid #000;
-  min-width: 50px;
-  line-height: 50px;
-  padding: 0 20px;
-  white-space: nowrap;
-}
-
-
 .project_content {
   display: flex;
   flex-direction: column;
@@ -624,7 +594,6 @@
 .badge_wrap {
   display: flex;
   gap: 4px;
-  // height: 20px;
   .badge_item {
     display: block;
     padding: 0 14px;
