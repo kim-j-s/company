@@ -21,7 +21,7 @@ $(function(){
 
 gsap.registerPlugin(ScrollTrigger);
 
-// BODALAB
+// BODALAB GSAP
 gsap.to('.gsap_bodalab_img01', {
   opacity: 1,
   y: 200,
@@ -64,7 +64,6 @@ gsap.to('.gsap_bodalab_img03', {
 
 gsap.to('.gsap_bodalab_text .text', {
   backgroundPositionX: "0%",
-  // stagger: 20,
   stagger: 20,
   duration: 20,
   scrollTrigger: {
@@ -77,23 +76,16 @@ gsap.to('.gsap_bodalab_text .text', {
 })
 
 
-// VISION
+// VISION GSAP
 const textItems = document.querySelectorAll('.text_item');
 const dom = document.querySelector('.dom');
 const iimg = document.querySelector('.dom img');
-
-const backgrounds = [
-  'gsap_vision_content_01.jpg',
-  'gsap_vision_content_02.jpg',
-  'gsap_vision_content_03.jpg'
-];
 
 const imgs = [
   'gsap_vision_content_01.jpg',
   'gsap_vision_content_02.jpg',
   'gsap_vision_content_03.jpg'
 ];
-
 
 textItems.forEach((item, index) => {  
   gsap.to(textItems, {
@@ -106,7 +98,6 @@ textItems.forEach((item, index) => {
       // markers: true,
       onEnter: function(ele) { 
         // console.log('Index', index)
-        // dom.style.backgroundImage = `url(../../img/${backgrounds[index]})`
         if (index != 0) {
           dom.classList.remove('active')
           setTimeout(function(){
@@ -117,7 +108,6 @@ textItems.forEach((item, index) => {
       },
       onEnterBack: function(ele) { 
         // console.log('Index onEnterBack', index)
-        // dom.style.backgroundImage = `url(../../img/${backgrounds[index]})`
         if ((textItems.length - 1) != index) {
           dom.classList.remove('active')
           setTimeout(function(){
@@ -130,6 +120,25 @@ textItems.forEach((item, index) => {
   })
 });
 
+// PROJECT GSAP
+const projectItems = document.querySelectorAll('.project_content .project_content_items');
+projectItems.forEach((item, index) => {
+  gsap.set(item, { opacity: 0, y: 150 });
+  gsap.to(item, {
+    y: 0,
+    opacity: 1,
+    duration: 0.5,
+    ease: "power3.in",
+    scrollTrigger: {
+      trigger: item,
+      start: () => "-400 " + item.offsetHeight,
+      toggleActions: 'play none none none',
+      // markers: true
+    }
+  })
+})
+
+
 /*----------------------------------------*/
 
 // project 효과
@@ -139,10 +148,8 @@ let mouseX = 0;
 // 계산된 윈도우 마우스 X
 let targetX = 0;
 // element 마우스 X
-// let domX = [];
 let domX = [];
 // 계산된 element 마우스 X / 모션
-// let targetDomX = [];
 let targetDomX = [];
 // 각 컨텐츠의 너비를 저장하기 위한 배열
 let domWidths = []; 
@@ -175,13 +182,6 @@ function windowXmotion() {
   requestAnimationFrame(windowXmotion);
 }
 windowXmotion();
-
-// dom 용
-// 개별로 적용
-function domMotion() {
-  // targetDomX += (domX - targetDomX) * ease;
-  domX[index] += (targetDomX[index] - domX[index]) * ease;
-}
 
 // 컨텐츠 선언
 const hoverDoms = document.querySelectorAll('.project_content_items');
