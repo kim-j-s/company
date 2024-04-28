@@ -164,6 +164,9 @@ const ease = 0.04;
 // let raf = false;
 let rafs = [];
 
+// let cancelLet = false;
+let cancelLet = [];
+
 // 윈도우 마우스 X 값 출력
 window.addEventListener("mousemove", (e) => {
   targetX = e.clientX;
@@ -240,12 +243,34 @@ hoverDoms.forEach((hoverDom, index) => {
 
   // motion
   function motionFuntion(index) {
-    console.log('motion index : ', index)
+    // console.log('motion index : ', index)
     domX[index] += (targetDomX[index] - domX[index]) * ease;
-    const calc = (((domX[index] - zeroPoint[index]) / domWidths[index] * 100) / 5) + 40;
+    const calc = (((domX[index] - zeroPoint[index]) / domWidths[index] * 100) / 5) + 39;
     const perComma = calc.toFixed(2);
-    $(hoverDoms[index]).children('.item').eq(0).css('width', (100 - perComma) + '%');
-    $(hoverDoms[index]).children('.item').eq(1).css('width', perComma + '%');
+    const dom1 = $(hoverDoms[index]).children('.item').eq(0).outerWidth();
+    const dom2 = $(hoverDoms[index]).children('.item').eq(1).outerWidth();
+    // console.log(cancelLet[index])
+    if (cancelLet[index] === undefined) {
+      cancelLet[index] = false
+      console.log('돔의 ',index, '번째 의 넓이', dom1, ' px / 컨텐츠 넓이는?', domWidths[index]);
+      console.log('돔의 ',index, '번째 의 넓이', dom2, ' px / 컨텐츠 넓이는?', domWidths[index]);
+      const fixedWidth = (dom1 / domWidths[index]) * 100
+      const cf = fixedWidth.toFixed(2)
+      console.log(cf)
+      // $(hoverDoms[index]).children('.item').eq(0).css('width', cf + '%');
+      // $(hoverDoms[index]).children('.item').eq(1).css('width', (100 - cf) + '%');
+      $(hoverDoms[index]).children('.item').eq(0).css('width', '39%');
+      $(hoverDoms[index]).children('.item').eq(1).css('width', '61%');
+    }
+
+    if (cancelLet[index] === false) {
+      $(hoverDoms[index]).children('.item').eq(0).css('width', (100 - perComma) + '%');
+      $(hoverDoms[index]).children('.item').eq(1).css('width', perComma + '%');
+    }
+    // $(hoverDoms[index]).children('.item').eq(0).css('width', (100 - perComma) + '%');
+    // $(hoverDoms[index]).children('.item').eq(1).css('width', perComma + '%');
+    
+    
   }
   function motionUpdate(index) {
     motionFuntion(index); // 출력 업데이트
