@@ -1,5 +1,28 @@
 import '../css/common.scss'
 
+// nav
+const navPoiner = document.querySelectorAll('nav li a')
+const ancherPoiner = document.querySelectorAll('.pointer')
+
+navPoiner.forEach((navItem, i) => {
+  navItem.addEventListener('click', e => {
+    navPoiner.forEach(item => {
+      item.classList.remove('on');
+    });
+    navItem.classList.add('on')
+
+    const targetAncher = ancherPoiner[i]
+    const targetOffsetTop = targetAncher.offsetTop
+    window.scrollTo({
+      top: targetOffsetTop,
+      behavior: 'smooth'
+    });
+
+  })
+})
+
+
+// slide
 function slide() {
   $('.slide_act').on('click', function(){
     const parent = $(this).closest('.slide_title')
