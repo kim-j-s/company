@@ -157,8 +157,13 @@ let domWidths = [];
 let domMaxWidths = [];
 // 컨텐츠 왼쪽 잔류 영역 계산
 let zeroPoint = [];
+// 최초값 세팅
+let xRest = [];
 // 이동 속도 조절을 위한 값을 조절 : 낮을수록 느림
 const ease = 0.04;
+
+let chkx = false;
+let bbb = 0;
 
 // requestAnimationFrame 초기화
 // let raf = false;
@@ -204,15 +209,33 @@ hoverDoms.forEach((hoverDom, index) => {
   // dom 에 마우스 진입 시 이벤트
   hoverDom.addEventListener("mousemove", (e) => {
     // console.log(e);
-    // dom의 X 좌표
+    // 현재 진입한 dom의 x 좌표값 targetDomX[index]
     targetDomX[index] = e.clientX;
+    // console.log('현재 진입한 dom의 x 좌표값 : ', targetDomX[index]);
+    // console.log('targetDomX[index] : hover : ', targetDomX[index]);
     // console.log(domX[index])
     // dom의 컨텐트 왼쪽 0점
     zeroPoint[index] = hoverDom.offsetLeft;
+    // console.log('zeroPoint[index] 0점 위치 : ', zeroPoint[index])
 
     // 각각 최대 넓이값 추가
-    domMaxWidths[index] = hoverDom.offsetLeft + hoverDom.offsetWidth;    
+    domMaxWidths[index] = hoverDom.offsetLeft + hoverDom.offsetWidth;
+    // console.log('domMaxWidths[index] 컨텐츠의 넓이 : ', domMaxWidths[index]);
+
+    // const ccccc = (((targetDomX[index] - zeroPoint[index]) / domWidths[index] * 100) / 5) + 40;
+    // console.log('넓이 퍼센트 : ', ccccc)
+
+    // chkx = false
+    // bbb = 0
+
+
     // console.log('진입 인덱스 : ', index)
+    // 돔의 왼쪽 여백
+    // console.log(hoverDom.offsetLeft);
+    // 컨텐츠 넓이 1280
+    // console.log(hoverDom.offsetWidth);
+    // 합산 전체 넓이
+    // console.log(domMaxWidths[index]);
     motionUpdate(index);
   })
 
@@ -237,39 +260,36 @@ hoverDoms.forEach((hoverDom, index) => {
       console.log('종료');
       setTimeout(function(){
         cancelAnimationFrame(rafs[index]);
-      }, 3500)
+      }, 500)
     }, 10)
   });
 
   // motion
   function motionFuntion(index) {
-    // console.log('motion index : ', index)
-    domX[index] += (targetDomX[index] - domX[index]) * ease;
-    const calc = (((domX[index] - zeroPoint[index]) / domWidths[index] * 100) / 5) + 39;
-    const perComma = calc.toFixed(2);
-    const dom1 = $(hoverDoms[index]).children('.item').eq(0).outerWidth();
-    const dom2 = $(hoverDoms[index]).children('.item').eq(1).outerWidth();
-    // console.log(cancelLet[index])
-    if (cancelLet[index] === undefined) {
-      cancelLet[index] = false
-      console.log('돔의 ',index, '번째 의 넓이', dom1, ' px / 컨텐츠 넓이는?', domWidths[index]);
-      console.log('돔의 ',index, '번째 의 넓이', dom2, ' px / 컨텐츠 넓이는?', domWidths[index]);
-      const fixedWidth = (dom1 / domWidths[index]) * 100
-      const cf = fixedWidth.toFixed(2)
-      console.log(cf)
-      // $(hoverDoms[index]).children('.item').eq(0).css('width', cf + '%');
-      // $(hoverDoms[index]).children('.item').eq(1).css('width', (100 - cf) + '%');
-      $(hoverDoms[index]).children('.item').eq(0).css('width', '39%');
-      $(hoverDoms[index]).children('.item').eq(1).css('width', '61%');
+    // const dom1 = $(hoverDoms[index]).children('.item').eq(0).outerWidth();
+    // const dom2 = $(hoverDoms[index]).children('.item').eq(1).outerWidth();
+
+    // 최초값 세팅 - 큰거는 잡았는데 작은거는 잡아야함
+    if (xRest[index] === undefined) {
+      xRest[index] = false
+      if (domX[index] < targetDomX[index]) {
+        domX[index] = targetDomX[index]
+      }
     }
 
-    if (cancelLet[index] === false) {
-      $(hoverDoms[index]).children('.item').eq(0).css('width', (100 - perComma) + '%');
-      $(hoverDoms[index]).children('.item').eq(1).css('width', perComma + '%');
-    }
-    // $(hoverDoms[index]).children('.item').eq(0).css('width', (100 - perComma) + '%');
-    // $(hoverDoms[index]).children('.item').eq(1).css('width', perComma + '%');
-    
+    console.log('domX[index] 최초 : ', domX[index]);
+    console.log('targetDomX[index] 최초 : ', targetDomX[index]);
+    domX[index] += (targetDomX[index] - domX[index]) * ease;
+    const calc = ((((domX[index]) - zeroPoint[index]) / domWidths[index] * 100) / 5) + 40;
+    // const calc = (((targetDomX[index] - zeroPoint[index]) / domWidths[index] * 100) / 5) + 40;
+    // console.log('per : ', calc)
+    console.log('domX[index] : ', domX[index])
+    const perComma = calc.toFixed(2);
+    // console.log('domX[index] : ', domX[index]);
+    // console.log('targetDomX[index] : ', targetDomX[index]);
+    $(hoverDoms[index]).children('.item').eq(0).css('width', (100 - perComma) + '%');
+    $(hoverDoms[index]).children('.item').eq(1).css('width', perComma + '%');
+    console.log('perComma : ', perComma + '%');
     
   }
   function motionUpdate(index) {

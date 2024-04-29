@@ -556,19 +556,19 @@
         }
       }
       &:nth-child(1) {
-        width: 61%;
+        width: 60%;
       }
       &:nth-child(2) {
-        width: 39%;
+        width: 40%;
       }
     }
     &:nth-child(odd) {
       .item {
         &:nth-child(1) {
-          width: 39%;
+          width: 40%;
         }
         &:nth-child(2) {
-          width: 61%;
+          width: 60%;
         }
       }
     }
