@@ -17,9 +17,37 @@ navPoiner.forEach((navItem, i) => {
       top: targetOffsetTop,
       behavior: 'smooth'
     });
-
   })
 })
+
+// scroll 시
+window.addEventListener('scroll', () => {
+  scrollEvent()
+})
+
+// 최초 진입 시
+document.addEventListener('DOMContentLoaded', () => {
+  scrollEvent()
+})
+
+function scrollEvent() {
+  const scrollY = window.scrollY;
+
+  let activeIndex = -1;
+  for (let i = 0; i < ancherPoiner.length; i++) {
+    if (scrollY >= ancherPoiner[i].offsetTop) {
+      activeIndex = i;
+    }
+  }
+
+  navPoiner.forEach((navItem, i) => {
+    if (i === activeIndex) {
+      navItem.classList.add('on');
+    } else {
+      navItem.classList.remove('on');
+    }
+  });
+}
 
 
 // slide
