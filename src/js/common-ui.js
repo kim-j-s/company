@@ -157,13 +157,12 @@ let domWidths = [];
 let domMaxWidths = [];
 // 컨텐츠 왼쪽 잔류 영역 계산
 let zeroPoint = [];
-// 최초값 세팅
-let xRest = [];
+// 최초값 domX 설정
+let chkx = [];
+// 각 hoverDom에 대한 타이머를 저장하는 배열
+const cancelTimeouts = [];
 // 이동 속도 조절을 위한 값을 조절 : 낮을수록 느림
 const ease = 0.04;
-
-let chkx = [];
-let bbb = 0;
 
 // requestAnimationFrame 초기화
 // let raf = false;
@@ -208,6 +207,8 @@ hoverDoms.forEach((hoverDom, index) => {
 
   // dom 에 마우스 진입 시 이벤트
   hoverDom.addEventListener("mousemove", (e) => {
+    // 구동중인 cancelAnimationFrame를 취소한다.
+    clearTimeout(cancelTimeouts[index]);
     // console.log(e);
     // 현재 진입한 dom의 x 좌표값 targetDomX[index]
     targetDomX[index] = e.clientX;
@@ -224,18 +225,18 @@ hoverDoms.forEach((hoverDom, index) => {
     // if (chkx[index] === undefined)  {
       let domResetValue1 = targetDomX[index]
       let domResetValue2 = domMaxWidths[index] - targetDomX[index]
-      console.log('domX[index] 마우스 들어갔을때 : ', domX[index])
-      console.log('결과 1 : ', domResetValue1);
-      console.log('결과 2 : ', domResetValue2);
+      // console.log('domX[index] 마우스 들어갔을때 : ', domX[index])
+      // console.log('결과 1 : ', domResetValue1);
+      // console.log('결과 2 : ', domResetValue2);
 
       if (dom1 < dom2 && domResetValue1 > domResetValue2) {
-        console.log('오른쪽이 크다');
+        // console.log('오른쪽이 크다');
         domX[index] = domResetValue1
       } else if (dom1 > dom2 && domResetValue1 < domResetValue2) {
-        console.log('왼쪽이 크다');
+        // console.log('왼쪽이 크다');
         domX[index] = domResetValue1
       } else {
-        console.log('나머지');
+        // console.log('나머지');
         domX[index] = domResetValue2
       }
       chkx[index] = false
@@ -246,27 +247,25 @@ hoverDoms.forEach((hoverDom, index) => {
 
   // dom 에 마우스 나갈 시 이벤트
   hoverDom.addEventListener("mouseleave", () => {
-    chkx[index] = true
     // console.log('mouseX : ', mouseX);
     setTimeout(function(){
       // 돔의 x 좌표가 돔의 0점보다 높다 크다 비교
       if (targetX < zeroPoint[index]) {
         targetDomX[index] = zeroPoint[index];
-        // console.log('left', mouseX)
       /*
       우측으로 나갈 경우 돔의 X 좌표가 윈도우 X 좌표보다 작고, 
       윈도우 X 좌표가 돔의 전체 길이보다 큰 경우
       */
       } else if (targetX > targetDomX[index] && targetX > domWidths[index]) {
         targetDomX[index] = domMaxWidths[index];
-        // console.log('right', domMaxWidths[index])
       }
       // console.log('후보정 이벤트 작성 구간')
       // 나갈 경우 requestAnimationFrame 종료
-      console.log('종료');
-      setTimeout(function(){
+      // console.log('종료');
+      cancelTimeouts[index] = setTimeout(function() {
         cancelAnimationFrame(rafs[index]);
-      }, 500)
+        // console.log('cancelAnimationFrame 종료');
+      }, 1500)
     }, 10)
   });
 
