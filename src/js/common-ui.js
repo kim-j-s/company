@@ -334,3 +334,36 @@ hoverDoms.forEach((hoverDom, index) => {
     rafs[index] = requestAnimationFrame(() => motionUpdate(index));
   }
 })
+
+
+
+
+//contact
+const contactForm = document.querySelector('#contact_form')
+
+contactForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const formData = new FormData(e.target);
+  const getData = Object.fromEntries(formData.entries());
+  const isAgree = formData.get('isAgree')==='on';
+
+  getData.isAgree = isAgree;
+  console.log('formData',getData);
+
+/** TO-DO : 서버에 전송하는 동안 버튼 및 form disabled 처리 */
+
+  fetch('/submit-contact', {
+    method: 'POST',
+    body: formData,
+  })
+    // .then((response) => response.json())
+    .then((response) => true)
+    .then((msg) => {
+      console.log('성공', msg);
+      alert('문의사항이 정상적으로 접수되었습니다.')
+    })
+    .catch((err) => {
+      console.error('실패', err);
+      alert('전송에 실패하였습니다.')
+    });
+})

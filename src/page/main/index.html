@@ -522,23 +522,27 @@
       </div>
       <div class="slide_content">
         <div class="slide_content_inner">
-          <div class="form">
+          <Form id="contact_form" class="form">
             <div class="form_input">
-              {{> input placeholder="회사명"}}
-              {{> input placeholder="회사명"}}
-              {{> input placeholder="회사명"}}
-              {{> input placeholder="회사명"}}
+              {{> input placeholder="회사명" name="companyName"}}
+              {{> input placeholder="담당자이름" name="author"}}
+              {{> input placeholder="연락처" name="tel"}}
+              {{> input placeholder="이메일" name="email"}}
               <div class="textarea">
-                <textarea name="" id="" cols="30" rows="10" placeholder="문의내용"></textarea>
+                <textarea name="contetns" id="" cols="30" rows="10" placeholder="문의내용"></textarea>
               </div>
             </div>
             <div class="form_agree">
-              {{> checkbox text="개인정보보호정책에 동의합니다."}}
+              <!-- {{> checkbox text="개인정보보호정책에 동의합니다." name="isAgree"}} -->
+              {{#> checkbox text="개인정보보호정책에 동의합니다" name="isAgree"}}
+              <b style="color:red">*</b>
+              {{/ checkbox}}
+
             </div>
             <div class="form_btnarea">
-              <button class="btn ty2"><span class="text">SEND</span></button>
+              <button class="btn ty2" type="submit"><span class="text">SEND</span></button>
             </div>
-          </div>
+          </Form>
         </div>
       </div>
     </div>
